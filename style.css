@@ -2,33 +2,154 @@
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 150vh;
     margin: 0;
 }
 
+/* Ensure header stays at the top */
+header {
+    background-color: #fff;
+    height: 5px;
+    position: relative;
+    z-index: 1000; /* Ensure header appears above the map */
+}
+
+/* Styling for the unordered list in header */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Adjust the logo position */
+ul img {
+    margin-left: 50px;
+    margin-top: -28px;
+    width: 150px;
+    height: 120px;
+}
+
+/* Styling for list items in header */
+ul li {
+    display: inline-block;
+    float: right;
+    margin-right: 25px;
+    margin-top: 13px;
+    color: #000;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+/* Styling for search box */
+.search-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #000;
+    height: 37px;
+    border-radius: 40px;
+    padding: 5px;
+    margin-top: 2.8%;
+}
+
+.search-box:hover>.search-text {
+    width: 240px;
+    padding: 0 9px;
+}
+
+.search-box:hover>.search-btn {
+    background: #fff;
+    color: #000;
+}
+
+.search-btn {
+    color: #fff;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.search-text {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: normal;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+}
+
+::placeholder {
+    color: #fff;
+}
+
+/* Adjust table styling */
+table {
+    color: #fff;
+    border-color: #fff;
+    border-radius: 50%;
+    width: 100%;
+}
+
+th {
+    text-align: center;
+    font-size: 18px;
+}
+
+td {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+}
+
+#table-header {
+    background-color: #fff;
+    height: 50px;
+    color: #000;
+}
+
+/* Adjust the map positioning */
 #map {
     flex: 1;
     width: 100%;
-    position: absolute;
+    margin-top: 90px; /* Add margin-top to leave space for the header */
+    position: relative; /* Adjust the positioning of the map */
     top: 0;
-    bottom: -30px; /* Space for footer (reduce this value) */
+    bottom: 0;
 }
 
 /* Footer Styles */
 footer {
-    background-color: #fa7e1e;
+    background-color: #000;
     padding: 16px 0; /* Adjust padding to make footer smaller */
     text-align: center;
     position: relative;
-    z-index: 100;
-    margin-top: 50%;
+    z-index: 10;
 }
 
 footer h3 {
     text-align: center;
-    color: #000;
+    color: #fff;
     margin: 0;
 }
+
+
 
 /* Wrapper for social icons */
 .wrapper {
@@ -52,9 +173,9 @@ footer h3 {
     width: 40px; /* Smaller icons */
     height: 40px; /* Smaller icons */
     margin: 8px;
-    background-color: #DCD7C9;
+    background-color: #fff;
     border-radius: 50%;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 1px 3px #000;
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -62,7 +183,7 @@ footer h3 {
 .social-icon i {
     margin: auto;
     font-size: 18px; /* Smaller icon font size */
-    color: rgb(63, 78, 79);
+    color: #000;
     z-index: 1;
 }
 
@@ -71,7 +192,7 @@ footer h3 {
 }
 
 .social-icon.github:after {
-    background-color: #24292e;
+    background-color: #000;
 }
 
 .social-icon.instagram:after {
@@ -80,11 +201,11 @@ footer h3 {
 
 .social-icon:hover {
     transform: translateY(-4px);
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 4px 12px #000;
 }
 
 .social-icon:hover i {
-    color: #fff;
+    color: #000;
 }
 
 .social-icon:hover:after {
@@ -93,10 +214,10 @@ footer h3 {
 
 /* Hover effect for text */
 .hover {
-    color: #DCD7C9;
+    color: #000;
     padding-block: 0.1em;
-    background: linear-gradient(#DCD7C9 50%, #000 0) 0% calc(100% - var(--_p, 0%)) / 100% 200%,
-        linear-gradient(#DCD7C9 0 0) 0% var(--_p, 0%) / var(--_p, 0%) 0.1em no-repeat;
+    background: linear-gradient(#fff 50%, #000 0) 0% calc(100% - var(--_p, 0%)) / 100% 200%,
+        linear-gradient(#fff 0 0) 0% var(--_p, 0%) / var(--_p, 0%) 0.1em no-repeat;
     -webkit-background-clip: text, padding-box;
     background-clip: text, padding-box;
     transition: all 0.3s ease;
@@ -107,12 +228,12 @@ footer h3 {
     transition: background-size 0.3s ease, linear 0.3s ease;
 }
 
-/* hover */
+/* Hover effect for header items */
 .hover {
     --b: 0.1em;
-    --c: #DCD7C9;
+    --c: #000;
 
-    color: #DCD7C9;
+    color: #000;
     padding-block: var(--b);
     background:
         linear-gradient(var(--c) 50%, #000 0) 0% calc(100% - var(--_p, 0%))/100% 200%,
@@ -126,4 +247,17 @@ footer h3 {
 .hover:hover {
     --_p: 100%;
     --_s: .3s;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #fff;
 }
