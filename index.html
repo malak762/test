@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ramallah Waste Containers</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <button id="darkModeToggle" class="dark-mode-toggle">Toggle Dark Mode</button>
+
+  <nav class="navbar">
+    <a href="#" class="logo">Distribution of Waste Dumps In Ramallah</a>
+    <ul>
+      <li><button>Create an account</button></li>
+      <li><button>Contact us</button></li>
+      <li><button>Rate the site</button></li>
+      <li><button onclick="window.open('https://forms.gle/your-form-id', '_blank')">Evaluate Us</button></li>
+      <li><button onclick="window.open('https://facebook.com', '_blank')">Facebook</button></li>
+      <li><button onclick="window.open('https://instagram.com', '_blank')">Instagram</button></li>
+      <li><button onclick="window.open('https://telegram.org', '_blank')">Telegram</button></li>
+      <li><button onclick="shareContent()">Share</button></li>
+    </ul>
+  </nav>
+
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <input type="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Password" required>
+        </div>
+        <div class="form-group">
+          <a href="#" class="forgot-password" id="forgotPassword">Forgot Password?</a>
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="scripts.js"></script>
+
+  <img src="https://cdn-icons-png.flaticon.com/512/3757/3757366.png" alt="Waste Container" class="moving-container">
+</body>
+
+</html>
