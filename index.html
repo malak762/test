@@ -2,56 +2,116 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ramallah Waste Containers</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8" />
+
+    <title>Ramallah Waste Containers</title>
+
+    <!-- Add a link to the Leaflet CSS library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <button id="darkModeToggle" class="dark-mode-toggle">Toggle Dark Mode</button>
+    <!-- The map container -->
+    <div id="map"></div>
 
-  <nav class="navbar">
-    <a href="#" class="logo">Distribution of Waste Dumps In Ramallah</a>
-    <ul>
-      <li><button>Create an account</button></li>
-      <li><button>Contact us</button></li>
-      <li><button>Rate the site</button></li>
-      <li><button onclick="window.open('https://forms.gle/your-form-id', '_blank')">Evaluate Us</button></li>
-      <li><button onclick="window.open('https://facebook.com', '_blank')">Facebook</button></li>
-      <li><button onclick="window.open('https://instagram.com', '_blank')">Instagram</button></li>
-      <li><button onclick="window.open('https://telegram.org', '_blank')">Telegram</button></li>
-      <li><button onclick="shareContent()">Share</button></li>
-    </ul>
-  </nav>
+    <!-- Footer content -->
 
-  <div id="loginModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Login</h2>
-      <form id="loginForm">
-        <div class="form-group">
-          <input type="email" placeholder="Email" required>
-        </div>
-        <div class="form-group">
-          <input type="password" placeholder="Password" required>
-        </div>
-        <div class="form-group">
-          <a href="#" class="forgot-password" id="forgotPassword">Forgot Password?</a>
-        </div>
-        <button type="submit" class="login-btn">Login</button>
-      </form>
-    </div>
-  </div>
 
-  <div id="map"></div>
+    <!-- Add Leaflet JavaScript library -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="scripts.js"></script>
+    <!-- Add jQuery for Ajax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  <img src="https://cdn-icons-png.flaticon.com/512/3757/3757366.png" alt="Waste Container" class="moving-container">
+    <!-- JavaScript for the map and layers -->
+    <script>
+        // Define map options
+        const mapOptions = {
+            zoomSnap: 0.5,
+            center: [31.9045, 35.2045],
+            zoom: 17.5,
+        };
+
+        const map = L.map("map", mapOptions);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        $.getJSON("RamallahZones.json", function (RZ) {
+            L.geoJson(RZ, {
+                style: function (feature) {
+                    return {
+                        fillColor: "yellow",
+                        fillOpacity: 0.3,
+                        color: "yellow",
+                        weight: 1.0,
+                        opacity: 0.7
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.on('click', function (e) {
+                        alert("Zone: " + feature.properties.NAME_ENGLI + "\nMAIL_CODE: " + feature.properties.MAIL_CODE);
+                    });
+                }
+            }).addTo(map);
+        });
+
+        $.getJSON("wasteContainer.json", function (WC) {
+            L.geoJson(WC, {
+                pointToLayer: function (feature, latlng) {
+                    return L.circleMarker(latlng, {
+                        radius: 5,
+                        fillColor: "orange",
+                        color: "orange",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.8
+                    });
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.on('click', function (e) {
+                        alert("Type: " + feature.properties.TYPE_OF_WA);
+                    });
+                }
+            }).addTo(map);
+        });
+
+        // Add layers control (if necessary, though the layers don't have variables)
+        const baseLayers = {};
+        const overlays = {
+            "Zones": zonesLayer,
+            "Waste Containers": wasteContainersLayer
+        };
+        L.control.layers(baseLayers, overlays).addTo(map);
+
+        zonesLayer.addTo(map);
+        wasteContainersLayer.addTo(map);
+    </script>
+
+    <script src="https://kit.fontawesome.com/28179b0d71.js"></script>
 </body>
+
+<footer id="Footer">
+    <h3>© 2023 All Rights Reserved.</h3>
+    <div class="wrapper">
+        <div class="social-icons">
+            <a class="social-icon mail" href="mailto:esmailjawabreh@gmail.com" target="_blank" rel="author">
+                <i class="fa-sharp fa-solid fa-envelope"></i>
+            </a>
+            <a class="social-icon instagram" href="https://www.instagram.com/esmail.sudgi/" target="_blank" rel="author">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="social-icon github" href="https://github.com/Esmail-Jawabreh" target="_blank" rel="author">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </div>
+</footer>
 
 </html>
